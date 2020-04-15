@@ -160,10 +160,13 @@ ensemble_train_function <-function(model_list, all_data, ense_ctrl, smpl){
                                     classProbs = TRUE
                                   ))
   
+  # Predict with trained model
+  preds <- predict(model_ensemble, testing)
+  
   # Output
   trained_model_output$ensemble <- model_ensemble
-  trained_model_output$testing_preds <- predict(model_ensemble, testing)
-  trained_model_output$confMat <- confusionMatrix(trained_model_output$testing_preds,
+  trained_model_output$testing_preds <- preds
+  trained_model_output$confMat <- confusionMatrix(preds,
                                                   testing$master_sti,
                                                   mode = 'prec_recall',
                                                   positive = 'Yes')
